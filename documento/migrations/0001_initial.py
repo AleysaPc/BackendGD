@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id_documento', models.AutoField(primary_key=True, serialize=False)),
                 ('nombre_documento', models.CharField(blank=True, max_length=255)),
-                ('archivo', models.FileField(upload_to=documento.models.ruta_archivo)),
+                ('archivo', models.FileField(upload_to='documentos/')),
                 ('tipo', models.CharField(choices=[('enviado', 'Enviado'), ('recibido', 'Recibido')], max_length=10)),
                 ('fecha_subida', models.DateTimeField(auto_now_add=True)),
                 ('correspondencia', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='documentos', to='correspondencia.correspondencia')),

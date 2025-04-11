@@ -1,15 +1,14 @@
 
 from rest_framework import serializers
 from .models import Documento, TipoDocumento
+from correspondencia.models import Correspondencia
 
 class DocumentoSerializer(serializers.ModelSerializer):
-
-    archivo = serializers.FileField(required=True)
     
     class Meta:
         model = Documento
-        fields = ['id_documento', 'archivo', 'nombre_documento']
-
+        fields = '__all__'
+    
 class TipoDocumentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoDocumento

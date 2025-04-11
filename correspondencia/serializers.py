@@ -3,21 +3,28 @@ from rest_framework import serializers
 from documento.models import Documento
 from documento.serializers import DocumentoSerializer
 
+
 class CorrespondenciaSerializer(serializers.ModelSerializer):
-    documentos = DocumentoSerializer(many=True, read_only=True)  # Para crear documentos al mismo tiempo
+   
+   #Se obtiene el id del docuemento
+   #documentos = serializers.PrimaryKeyRelatedField(many=True, queryset=Documento.objects.all())
+   
+
+   #Smuestra el array de documentos, tener en cuenta el many=True
+   documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+   class Meta: 
+         model = Correspondencia
+         fields = ['id_correspondencia','fecha_registro','referencia','descripcion','paginas','prioridad','estado','comentario','documentos']
     
-    class Meta:
-        model = Correspondencia
-        fields = ['id_correspondencia','fecha_registro', 'referencia', 'descripcion', 'paginas', 'prioridad', 'estado', 'comentario', 'documentos']
 
+#ENTRANTES
 class DocEntranteSerializer(serializers.ModelSerializer):
-    documentos = DocumentoSerializer(many=True, read_only=True)
-    correspondencia = CorrespondenciaSerializer(read_only=True)  # Solo lectura para evitar problemas de creación
 
+    #Para ver los datos y no solo el id
+    correspondencia = CorrespondenciaSerializer()
     class Meta: 
         model = DocEntrante
-        fields = ['id_doc_entrante', 'nro_registro', 'fecha_recepcion', 'fecha_respuesta', 'documentos', 'correspondencia']
-
+        fields = ['id_doc_entrante','nro_registro','fecha_recepcion','fecha_respuesta', 'correspondencia']
 
 class DocSalienteSerializer(serializers.Serializer):
     class Meta:

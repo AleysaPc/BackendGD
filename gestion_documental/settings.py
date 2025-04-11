@@ -122,6 +122,7 @@ USE_TZ = True
 import os
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
+#Define la ruta del sistema de archivos donde se almacenarán los archivos subidos.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
