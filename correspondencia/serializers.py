@@ -4,27 +4,58 @@ from documento.models import Documento
 from documento.serializers import DocumentoSerializer
 
 
-class CorrespondenciaSerializer(serializers.ModelSerializer):
+class CorrespondenciaListSerializer(serializers.ModelSerializer):
    
    #Se obtiene el id del docuemento
    #documentos = serializers.PrimaryKeyRelatedField(many=True, queryset=Documento.objects.all())
    
 
    #Smuestra el array de documentos, tener en cuenta el many=True
-   documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+   #documentos = DocumentoSerializer(many=True, read_only=True, required=False)
    class Meta: 
-         model = Correspondencia
-         fields = ['id_correspondencia','fecha_registro','referencia','descripcion','paginas','prioridad','estado','comentario','documentos']
+        model = Correspondencia
+        fields = [
+            'id_correspondencia',
+            'fecha_registro',
+            'referencia',
+            'descripcion',
+            'paginas',
+            'prioridad',
+            'estado',
+            'comentario',
+        ]
     
+class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Solo uno 
+    documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+    class Meta: 
+        model = Correspondencia
+        fields = [
+            'id_correspondencia',
+            'fecha_registro',
+            'referencia',
+            'descripcion',
+            'paginas',
+            'prioridad',
+            'estado',
+            'comentario', 
+            'documentos'
+        ]
+
 
 #ENTRANTES
 class DocEntranteSerializer(serializers.ModelSerializer):
 
     #Para ver los datos y no solo el id
-    correspondencia = CorrespondenciaSerializer()
+    correspondencia = CorrespondenciaDetailSerializer()
     class Meta: 
         model = DocEntrante
-        fields = ['id','nro_registro','fecha_recepcion','fecha_respuesta', 'correspondencia']
+        fields = [
+            'id_doc_entrante',
+            'nro_registro',
+            'fecha_recepcion',
+            'fecha_respuesta', 
+            'correspondencia',
+        ]
 
 class DocSalienteSerializer(serializers.Serializer):
     class Meta:
