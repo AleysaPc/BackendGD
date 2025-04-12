@@ -10,10 +10,10 @@ class Correspondencia(models.Model):
     fecha_registro = models.DateTimeField(auto_now_add=True)
     referencia = models.CharField(max_length=255)
     descripcion = models.TextField()
-    paginas = models.IntegerField(null=False, blank=False)
+    paginas = models.IntegerField(default=1)#OJO
     prioridad = models.CharField(max_length=20, choices=TIPO_CHOICES_PRIORIDAD)
     estado = models.CharField(max_length=20, choices=TIPO_CHOICES_ESTADO, default='en_revision')
-    comentario = models.TextField(null=False, blank=False) 
+    comentario = models.TextField(null=True, blank=True) 
 
     def __str__(self):
         return f"{self.referencia} "

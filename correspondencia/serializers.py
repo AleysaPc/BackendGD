@@ -24,7 +24,7 @@ class DocEntranteSerializer(serializers.ModelSerializer):
     correspondencia = CorrespondenciaSerializer()
     class Meta: 
         model = DocEntrante
-        fields = ['id_doc_entrante','nro_registro','fecha_recepcion','fecha_respuesta', 'correspondencia']
+        fields = ['id','nro_registro','fecha_recepcion','fecha_respuesta', 'correspondencia']
 
 class DocSalienteSerializer(serializers.Serializer):
     class Meta:
