@@ -14,19 +14,19 @@ class TipoDocumento(models.Model):
         return self.nombre_tipo_documento
 
 
-#def ruta_archivo(instance, filename):
-    #if instance.tipo == 'enviado':
-        #return os.path.join('documentos','enviados', filename)
-    #elif instance.tipo == 'recibido':
-        #return os.path.join('documentos','recibido', filename)
-
+def ruta_archivo(instance, filename):
+    tipo = instance.correspondencia.tipo if instance.correspondencia else 'otros'
+    if tipo == 'enviado':
+        return os.path.join('documentos', 'enviados', filename)
+    elif tipo == 'recibido':
+        return os.path.join('documentos', 'recibido', filename)
+    else:
+        return os.path.join('documentos', 'otros', filename)
+    
 class Documento(models.Model):
-    TIPO_CHOICES = [('enviado', 'Enviado'),
-                    ('recibido', 'Recibido'),]
     id_documento = models.AutoField(primary_key=True)
     nombre_documento = models.CharField(max_length=255, blank=True)
-    archivo = models.FileField(upload_to='documentos/', blank=True, null=True)  # Cambia la ruta según tu estructura de carpetas
-    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES)
+    archivo = models.FileField(upload_to=ruta_archivo, blank=True, null=True)  # Cambia la ruta según tu estructura de carpetas
     fecha_subida = models.DateTimeField(auto_now_add=True)
     correspondencia = models.ForeignKey('correspondencia.Correspondencia', on_delete=models.CASCADE, related_name='documentos') 
     tipo_documento = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE, related_name='documentos',)
