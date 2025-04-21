@@ -2,6 +2,7 @@ from .models import Correspondencia, DocEntrante, DocSaliente, DocInterno
 from rest_framework import serializers
 from documento.models import Documento
 from documento.serializers import DocumentoSerializer
+from contacto.serializers import ContactoSerializer 
 
 
 class CorrespondenciaListSerializer(serializers.ModelSerializer):
@@ -23,10 +24,13 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer):
             'prioridad',
             'estado',
             'comentario',
+            'contacto'
+            
         ]
     
 class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Solo uno 
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+    contacto = ContactoSerializer(many=False, read_only=True, required=False)
     class Meta: 
         model = Correspondencia
         fields = [
@@ -38,7 +42,8 @@ class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Solo uno
             'prioridad',
             'estado',
             'comentario', 
-            'documentos'
+            'documentos',
+            'contacto',
         ]
 
 

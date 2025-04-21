@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/correspondencia/', include('correspondencia.urls')),  # Include the app's URLs here
     path('api/v1/documento/', include('documento.urls')),  # Include the app's URLs here
+    path('api/v1/contacto/', include('contacto.urls')),  # Include the app's URLs here
 ]
 
 # Solo en desarrollo: Servir archivos de MEDIA_ROOT

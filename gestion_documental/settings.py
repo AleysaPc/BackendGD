@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',  # Django REST framework
     'correspondencia',  # Your app name here
     'documento',    # Your app name here
+    'contacto', 
 ]
 
 MIDDLEWARE = [
