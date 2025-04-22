@@ -81,7 +81,26 @@ class DocInterno(models.Model):
     gestion = models.PositiveIntegerField(default=now().year, editable=False)  # Año de gestión
     cite = models.CharField(max_length=100, unique=True, blank=True)  # Código único del documento
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    correspondencia = models.ForeignKey(Correspondencia, on_delete=models.CASCADE, related_name='documentos_internos')
-    def __str__(self):
-        return f"{self.numero}"
+    tipo = models.ForeignKey('documento.TipoDocumentoInterno', on_delete=models.CASCADE, related_name='docInterno', null=True, blank=True)    
     
+    class Meta:
+        unique_together = ('tipo', 'numero', 'gestion')  # Evita duplicados por tipo y año
+
+    def save(self, *args, **kwargs):
+        if not self.id_doc_interno:  # Si es un nuevo documento
+            # Buscar el último número registrado del mismo tipo y año
+            ultimo_documento = DocInterno.objects.filter(
+                tipo=self.tipo, 
+                gestion=self.gestion
+            ).order_by('-numero').first()
+
+            # Si existe un documento previo, incrementar el número; de lo contrario, iniciar en 1
+            self.numero = (ultimo_documento.numero + 1) if ultimo_documento else 1
+
+            # Generar el código CITE
+            self.cite = f"{self.tipo.nombre_documento_interno[:3].upper()}-{self.numero:03d}/{self.gestion}"
+
+        super().save(*args, **kwargs)  # Guardar en la BD
+
+    def __str__(self):
+        return f"{self.cite} - {self.tipo.nombre_documento_interno}"

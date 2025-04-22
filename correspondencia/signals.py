@@ -26,7 +26,8 @@ def enviar_notificacion_correo(sender, instance, created, **kwargs):
         print("Notificación enviada. Fecha de respuesta: No especificada")
         
         #Para adjuntar el documento
-        #documento = instance.documento.archivo.path if instance.documento else None
+        #documento = instance.documento  # Accede al documento desde la correspondencia
+
 
         remitente = instance.correspondencia.contacto  # Accede al remitente desde la correspondencia
         if remitente:  # Verifica si remitente no es None
@@ -66,10 +67,10 @@ def enviar_notificacion_correo(sender, instance, created, **kwargs):
         )
         
          # Adjunta el documento al correo
-        #if instance.documento:  # Verifica si el documento existe
-         #    archivo = instance.documento.archivo  # Accede al archivo relacionado
-        #if archivo:  # Verifica si el archivo está presente
-         #   email.attach_file(archivo.path)  # Adjunta el archivo
+        if instance.correspondencia.documento:  # Verifica si el documento existe
+             archivo = instance.correspondencia.documento.archivo  # Accede al archivo relacionado
+        if archivo:  # Verifica si el archivo está presente
+            email.attach_file(archivo.path)  # Adjunta el archivo
 
         # Envía el correo electrónico
         try:

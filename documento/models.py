@@ -5,6 +5,14 @@ from django.contrib.postgres.fields import ArrayField
 
 
 # Create your models here.
+class TipoDocumentoInterno(models.Model):
+    id_tipo_documento_interno = models.AutoField(primary_key=True)
+    nombre_documento_interno = models.CharField(max_length=50, unique=True)
+    descripcion = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.nombre_documento_interno
+
 class TipoDocumento(models.Model):
     id_tipo_documento = models.AutoField(primary_key=True)
     nombre_tipo_documento = models.CharField(max_length=50, unique=True)
@@ -30,7 +38,7 @@ class Documento(models.Model):
     fecha_subida = models.DateTimeField(auto_now_add=True)
     correspondencia = models.ForeignKey('correspondencia.Correspondencia', on_delete=models.CASCADE, related_name='documentos') 
     tipo_documento = models.ForeignKey(TipoDocumento, on_delete=models.CASCADE, related_name='documentos',)
-    
+    tipo_documento_interno = models.ForeignKey(TipoDocumentoInterno, on_delete=models.CASCADE, related_name='documentos_internos', blank=True, null=True)
     def __str__(self):
         return self.nombre_documento
     
