@@ -20,6 +20,7 @@ class ContactoSerializer(serializers.ModelSerializer):
         fields = [
             'id_contacto',
             'nombre_contacto',
+            'titulo_profesional',
             'apellido_pat_contacto',
             'apellido_mat_contacto',
             'cargo',

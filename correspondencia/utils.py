@@ -22,8 +22,22 @@ def generar_documento_word(docSaliente):
     # Señor:
     doc.add_paragraph("Señor:")
 
+    if docSaliente.correspondencia.contacto.titulo_profesional == "Ingeniero" :
+        titulo = "Ing."
+    elif docSaliente.correspondencia.contacto.titulo_profesional == "Licenciado":
+        titulo = "Lic."
+    elif docSaliente.correspondencia.contacto.titulo_profesional == "Doctor":
+        titulo = "Dr."
+    elif docSaliente.correspondencia.contacto.titulo_profesional == "Abogado":
+        titulo = "Abog."
+    elif docSaliente.correspondencia.contacto.titulo_profesional == "Profesor":
+        titulo = "Prof."
+    elif docSaliente.correspondencia.contacto.titulo_profesional == "Magister":
+        titulo = "Mgs."
+    else:
+        titulo = ""
     # Nombre del contacto
-    doc.add_paragraph(docSaliente.correspondencia.contacto.nombre_contacto)
+    doc.add_paragraph(f"{titulo} {docSaliente.correspondencia.contacto.nombre_contacto}")
 
     # Apellidos del contacto
     doc.add_paragraph(f"{docSaliente.correspondencia.contacto.apellido_pat_contacto} {docSaliente.correspondencia.contacto.apellido_mat_contacto}")

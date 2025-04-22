@@ -17,6 +17,7 @@ class Contacto(models.Model):
     nombre_contacto = models.CharField(max_length=100)
     apellido_pat_contacto = models.CharField(max_length=100)
     apellido_mat_contacto = models.CharField(max_length=100)
+    titulo_profesional = models.CharField(max_length=100, null=True, blank=True)
     cargo = models.CharField(max_length=100)
     email = models.EmailField()
     telefono = models.CharField(max_length=20)
