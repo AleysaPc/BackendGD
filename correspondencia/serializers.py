@@ -27,6 +27,7 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
                 'estado',
                 'documentos',
                 'contacto',
+                #'usuario', #Usuario que crea la correspondencia
                 
             ]
         

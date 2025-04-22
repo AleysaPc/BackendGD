@@ -20,6 +20,7 @@ class Correspondencia(models.Model):
     estado = models.CharField(max_length=20, choices=TIPO_CHOICES_ESTADO, default='en_revision')
     comentario = models.TextField(null=True, blank=True)
     contacto = models.ForeignKey('contacto.Contacto', on_delete=models.CASCADE, blank=True, null=True)
+    usuario = models.ForeignKey('usuario.CustomUser', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"{self.referencia}"

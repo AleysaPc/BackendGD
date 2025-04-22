@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',  # CORS headers para comunicación entre frontend y backend
     'rest_framework',  # Django REST framework
+    'knox',
+    'django_rest_passwordreset',
     'correspondencia',  # Your app name here
     'documento',    # Your app name here
     'contacto', 
+    'usuario',
 ]
 
 MIDDLEWARE = [
