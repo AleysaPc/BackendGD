@@ -58,6 +58,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+
 ROOT_URLCONF = 'gestion_documental.urls'
 
 TEMPLATES = [
