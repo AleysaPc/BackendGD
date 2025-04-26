@@ -39,21 +39,7 @@ class CustomUser(AbstractUser):
 
     role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True, blank=True)
 
-    groups = models.ManyToManyField(
-        Group,
-        related_name='customuser_set',  # <<< esto arregla el conflicto
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups'
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='customuser_permissions_set',  # <<< esto también
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions'
-    )
-
+ 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

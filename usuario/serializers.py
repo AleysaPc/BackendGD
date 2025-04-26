@@ -40,7 +40,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'birthday',
             'username',
             'role',  # Asegúrate de agregar 'role' aquí
-            'name_rol'
+            'name_rol',
             'institucion',
         ]
         extra_kwargs = {
