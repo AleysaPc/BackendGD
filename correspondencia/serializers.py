@@ -14,19 +14,34 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
    #se muestra el array de documentos, tener en cuenta el many=True
    #documentos = DocumentoSerializer(many=True, read_only=True, required=False)
 
-    contacto = ContactoSerializer(many=False, read_only=True, required=False)
+    #contacto = ContactoSerializer(many=False, read_only=True, required=False) Trae todo el array
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+    nombre_contacto = serializers.CharField(source='contacto.nombre_contacto', read_only=True) #Solo el nombre del contacto
+    apellido_paterno_contacto = serializers.CharField(source='contacto.apellido_pat_contacto', read_only=True) #Solo el apellido del contacto
+    apellido_materno_contacto = serializers.CharField(source='contacto.apellido_mat_contacto', read_only=True) #Solo el apellido del contacto
+    cargo = serializers.CharField(source='contacto.cargo', read_only=True) #Solo el cargo del contacto
+    titulo_profesional = serializers.CharField(source='contacto.titulo_profesional', read_only=True) #Solo el cargo del contacto
+   
     class Meta: 
             model = Correspondencia
             fields = [
                 'id_correspondencia',
+                'tipo',
                 'fecha_registro',
                 'referencia',
                 'paginas',
                 'prioridad',
                 'estado',
                 'documentos',
-                'contacto',
+                'nombre_contacto',
+                'apellido_paterno_contacto',
+                'apellido_materno_contacto',
+                'cargo',
+                'titulo_profesional',
+
+                
+
+
                 #'usuario', #Usuario que crea la correspondencia
                 
             ]
