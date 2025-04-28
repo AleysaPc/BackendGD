@@ -14,14 +14,10 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
    #se muestra el array de documentos, tener en cuenta el many=True
    #documentos = DocumentoSerializer(many=True, read_only=True, required=False)
 
-    #contacto = ContactoSerializer(many=False, read_only=True, required=False) Trae todo el array
+    #contacto = ContactoSerializer(many=False, read_only=True, required=False) 
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
-    nombre_contacto = serializers.CharField(source='contacto.nombre_contacto', read_only=True) #Solo el nombre del contacto
-    apellido_paterno_contacto = serializers.CharField(source='contacto.apellido_pat_contacto', read_only=True) #Solo el apellido del contacto
-    apellido_materno_contacto = serializers.CharField(source='contacto.apellido_mat_contacto', read_only=True) #Solo el apellido del contacto
-    cargo = serializers.CharField(source='contacto.cargo', read_only=True) #Solo el cargo del contacto
-    titulo_profesional = serializers.CharField(source='contacto.titulo_profesional', read_only=True) #Solo el cargo del contacto
-    nombre_completo = serializers.CharField(source='contacto.nombre_completo', read_only=True) #Solo el nombre completo del contacto
+    
+    
     class Meta: 
             model = Correspondencia
             fields = [
@@ -34,12 +30,10 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
                 'prioridad',
                 'estado',
                 'documentos',
-                'nombre_completo',
-                'nombre_contacto',
-                'apellido_paterno_contacto',
-                'apellido_materno_contacto',
-                'cargo',
-                'titulo_profesional',
+                'contacto', #Unicamente necesitamos el ID para el registro en el frontend
+                'usuario', #Usuario que crea la correspondencia
+              
+              
 
                 
 
@@ -48,20 +42,21 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
                 
             ]
         
-class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Mas datos
+class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Para obetner uno solo por el ID
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
-    contacto = ContactoSerializer(many=False, read_only=True, required=False)
+    #contacto = ContactoSerializer(many=False, read_only=True, required=False)
     class Meta: 
         model = Correspondencia
         fields = [
             'id_correspondencia',
+            'tipo',
             'fecha_registro',
+            'comentario',
             'referencia',
             'descripcion',
             'paginas',
             'prioridad',
             'estado',
-            'comentario', 
             'documentos',
             'contacto',
         ]
