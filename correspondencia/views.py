@@ -5,6 +5,9 @@ from gestion_documental.mixins import PaginacionYAllDataMixin
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .utils import generar_documento_word
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 
 # Create your views here.
 class CorrespondenciaView(PaginacionYAllDataMixin, viewsets.ModelViewSet):
@@ -16,6 +19,27 @@ class CorrespondenciaView(PaginacionYAllDataMixin, viewsets.ModelViewSet):
         elif self.action == 'retrieve':
             return CorrespondenciaDetailSerializer
         return CorrespondenciaListSerializer
+    
+    #Para filtrar por tipo de correspondencia recibido o enviado
+    @action(detail=False, methods=['get'])
+    def recibidos(self, request):
+        queryset = self.get_queryset().filter(tipo='recibido').order_by('id_correspondencia')
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def enviados(self, request):
+        queryset = self.get_queryset().filter(tipo='enviado').order_by('id_correspondencia')
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
     
 class DocEntranteView(PaginacionYAllDataMixin, viewsets.ModelViewSet):
     serializer_class = DocEntranteSerializer

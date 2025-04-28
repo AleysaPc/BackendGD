@@ -9,9 +9,9 @@ class DocumentoInline(admin.TabularInline):  # O usa StackedInline si prefieres 
     fields = ['archivo','nombre_documento', 'tipo_documento', ]  # Campos a mostrar del Documento
 
 class CorrespondenciaAdmin(admin.ModelAdmin):
-    list_display = ['id_correspondencia', 'fecha_registro', 'referencia','tipo']  # Campos para listar en la vista de la lista
+    list_display = ['id_correspondencia', 'fecha_registro', 'referencia','tipo',]  # Campos para listar en la vista de la lista
     inlines = [DocumentoInline]  # Agregamos el Inline para mostrar documentos
-    exclude = ['tipo']  # Excluimos el campo 'tipo' del formulario principal
+    #exclude = ['tipo']  # Excluimos el campo 'tipo' del formulario principal
 
 @admin.register(DocSaliente)
 class DocSalienteAdmin(admin.ModelAdmin):

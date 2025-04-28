@@ -21,18 +21,20 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
     apellido_materno_contacto = serializers.CharField(source='contacto.apellido_mat_contacto', read_only=True) #Solo el apellido del contacto
     cargo = serializers.CharField(source='contacto.cargo', read_only=True) #Solo el cargo del contacto
     titulo_profesional = serializers.CharField(source='contacto.titulo_profesional', read_only=True) #Solo el cargo del contacto
-   
+    nombre_completo = serializers.CharField(source='contacto.nombre_completo', read_only=True) #Solo el nombre completo del contacto
     class Meta: 
             model = Correspondencia
             fields = [
                 'id_correspondencia',
                 'tipo',
+                'descripcion', #Descripción esta si aparece en la creación del frontend
                 'fecha_registro',
                 'referencia',
                 'paginas',
                 'prioridad',
                 'estado',
                 'documentos',
+                'nombre_completo',
                 'nombre_contacto',
                 'apellido_paterno_contacto',
                 'apellido_materno_contacto',
