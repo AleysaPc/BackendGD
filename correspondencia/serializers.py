@@ -32,6 +32,7 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
                 'documentos',
                 'contacto', #Unicamente necesitamos el ID para el registro en el frontend
                 'usuario', #Usuario que crea la correspondencia
+                'comentario',
               
               
 
@@ -66,7 +67,7 @@ class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Para obetne
 class DocEntranteSerializer(serializers.ModelSerializer):
 
     #Para ver los datos y no solo el id
-    correspondencia = CorrespondenciaDetailSerializer()
+    #correspondencia = CorrespondenciaDetailSerializer()
     class Meta: 
         model = DocEntrante
         fields = [
@@ -75,6 +76,7 @@ class DocEntranteSerializer(serializers.ModelSerializer):
             'fecha_recepcion',
             'fecha_respuesta', 
             'correspondencia',
+
         ]
         read_only_fields = ['id_doc_entrante']
         
