@@ -67,7 +67,7 @@ class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Para obetne
 class DocEntranteSerializer(serializers.ModelSerializer):
 
     #Para ver los datos y no solo el id
-    #correspondencia = CorrespondenciaDetailSerializer()
+    correspondencia = CorrespondenciaDetailSerializer()
     class Meta: 
         model = DocEntrante
         fields = [
