@@ -14,7 +14,7 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
    #se muestra el array de documentos, tener en cuenta el many=True
    #documentos = DocumentoSerializer(many=True, read_only=True, required=False)
 
-    #contacto = ContactoSerializer(many=False, read_only=True, required=False) 
+    contacto = serializers.StringRelatedField()
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
     
     
@@ -45,6 +45,7 @@ class CorrespondenciaListSerializer(serializers.ModelSerializer): #Menos campos 
         
 class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Para obetner uno solo por el ID
     documentos = DocumentoSerializer(many=True, read_only=True, required=False)
+    
     #contacto = ContactoSerializer(many=False, read_only=True, required=False)
     class Meta: 
         model = Correspondencia
@@ -67,7 +68,8 @@ class CorrespondenciaDetailSerializer(serializers.ModelSerializer): #Para obetne
 class DocEntranteSerializer(serializers.ModelSerializer):
 
     #Para ver los datos y no solo el id
-    correspondencia = CorrespondenciaDetailSerializer()
+    correspondencia = CorrespondenciaListSerializer()
+
     class Meta: 
         model = DocEntrante
         fields = [
@@ -80,7 +82,7 @@ class DocEntranteSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id_doc_entrante']
         
-class DocSalienteSerializer(serializers.Serializer):
+class DocSalienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = DocSaliente
         fields = '__all__'

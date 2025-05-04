@@ -20,7 +20,7 @@ class CorrespondenciaView(PaginacionYAllDataMixin, viewsets.ModelViewSet):
             return CorrespondenciaDetailSerializer
         return CorrespondenciaListSerializer
     
-    #Para filtrar por tipo de correspondencia recibido o enviado
+    #Para las rutas hacias recibido y enviado
     @action(detail=False, methods=['get'])
     def recibidos(self, request):
         queryset = self.get_queryset().filter(tipo='recibido').order_by('id_correspondencia')
